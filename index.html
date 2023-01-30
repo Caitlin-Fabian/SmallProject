@@ -1,22 +1,114 @@
-<html>
-<head>
-	<title>COP 4331 LAMP Stack Demo</title>
-	<script type="text/javascript" src="js/md5.js"></script>
-	<script type="text/javascript" src="js/code.js"></script>
-    <link href="css/styles.css" rel="stylesheet">	
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-</head>
-<body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>First Contact</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+      integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <style>
+      #intro {
+        background-image: url('https://cdn.discordapp.com/attachments/1066852233670578186/1068324269009948742/w0qg2oanfel51_1.png');
+        background-repeat: round;
+        background-color: #7831eb;
+        height: 100vh;
+        width: 100%;
+      }
+    </style>
 
-<h1 id="title">COP 4331 LAMP Stack Demo</h1>
+    <div
+      id="intro"
+      class="bg-image"
+    >
+      <div
+        class="container d-flex justify-content-center align-items-center"
+        style="font-family: 'Orbitron', sans-serif"
+      >
+        <div class="mt-4 p-5 bg-secondary text-white rounded">
+          <h1>First Contact</h1>
+          <form action="/action_page.php">
+            <div class="mb-3 mt-3">
+              <label
+                for="email"
+                class="form-label"
+                >Email:</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="Enter email"
+                name="email"
+              />
+            </div>
+            <div class="mb-3">
+              <label
+                for="pwd"
+                class="form-label"
+                >Password:</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="pwd"
+                placeholder="Enter password"
+                name="pswd"
+              />
+            </div>
+            <div class="form-check mb-3">
+              <label class="form-check-label">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="remember"
+                />
+                Remember me
+              </label>
+            </div>
+            <button
+              type="button"
+              id="loginButton"
+              class="buttons"
+              onclick="doLogin();"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
 
-<div id="loginDiv">
-	<span id="inner-title">PLEASE LOG IN</span>
-	<input type="text" id="loginName" placeholder="Username" /><br />
-	<input type="password" id="loginPassword" placeholder="Password"/><br />
-	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Do It </button>
-	<span id="loginResult"></span>
-</div>
-
-</body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+      integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
