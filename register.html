@@ -1,57 +1,133 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>COP 4331 LAMP Stack Demo</title>
-    <script
-      type="text/javascript"
-      src="js/md5.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="js/code.js"
-    ></script>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>First Contact</title>
+    <link rel="stylesheet" href="css/styles.css"></link>
     <link
-      href="css/styles.css"
       rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+      integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+      crossorigin="anonymous"
     />
     <link
-      href="https://fonts.googleapis.com/css?family=Ubuntu"
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
       rel="stylesheet"
     />
+    <script type="text/javascript" src="js/code.js"></script>
+
   </head>
   <body>
-    <h1 id="title">COP 4331 LAMP Register</h1>
-
-    <div id="loginDiv">
-      <span id="inner-title">PLEASE LOG IN</span>
-      <input
-        type="text"
-        id="firstName"
-        placeholder="First Name"
-      /><br />
-      <input
-        type="text"
-        id="lastName"
-        placeholder="Last Name"
-      /><br />
-      <input
-        type="text"
-        id="userName"
-        placeholder="Username"
-      /><br />
-      <input
-        type="password"
-        id="loginPassword"
-        placeholder="Password"
-      /><br />
-      <button
-        type="button"
-        id="loginButton"
-        class="buttons"
-        onclick="doRegister();"
+    <div
+      id="intro"
+    >
+      <div
+        class="container d-flex justify-content-center align-items-center"
+        style="font-family: 'Orbitron', sans-serif"
       >
-        Register
-      </button>
-      <span id="loginResult"></span>
+        <div class="mt-4 p-5 bg-secondary text-white rounded">
+          <h1>First Contact</h1>
+          <form>
+            <div class="mb-3 mt-3">
+              <label
+                for="firstName"
+                class="form-label"
+                >First Name:</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="firstName"
+                placeholder="Enter Username"
+              />
+            </div>
+            <div class="mb-3 mt-3">
+              <label
+                for="lastName"
+                class="form-label"
+                >Last Name:</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="lastName"
+                placeholder="Enter Username"
+              />
+            </div>
+            <div class="mb-3 mt-3">
+              <label
+                for="userName"
+                class="form-label"
+                >Username:</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="userName"
+                placeholder="Enter Username"
+              />
+            </div>
+            <div class="mb-3">
+              <label
+                for="loginPassword"
+                class="form-label"
+                >Password:</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="loginPassword"
+                placeholder="Enter password"
+              />
+            </div>
+            <div><p >Already have an account? <a class="link-switch" href="index.html">Click Here</a></p></div>
+            <div class="form-check mb-3">
+              <label class="form-check-label">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="remember"
+                />
+                Remember me
+              </label>
+            </div>
+           
+          </form>
+          <button
+          type="button"
+          id="loginButton"
+          class="buttons"
+          onclick="doRegister();"
+        >
+          Login
+        </button>
+        <span id="loginResult"></span>
+        </div>
+      </div>
     </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+      integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
