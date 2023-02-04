@@ -7,6 +7,7 @@
       content="width=device-width, initial-scale=1.0"
     />
     <title>First Contact</title>
+    <link rel="stylesheet" href="css/styles.css"></link>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
@@ -26,57 +27,48 @@
       href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
       rel="stylesheet"
     />
+    <script type="text/javascript" src="js/code.js"></script>
+
   </head>
   <body>
-    <style>
-      #intro {
-        background-image: url('https://cdn.discordapp.com/attachments/1066852233670578186/1068324269009948742/w0qg2oanfel51_1.png');
-        background-repeat: round;
-        background-color: #7831eb;
-        height: 100vh;
-        width: 100%;
-      }
-    </style>
-
     <div
       id="intro"
-      class="bg-image"
     >
+    
       <div
         class="container d-flex justify-content-center align-items-center"
         style="font-family: 'Orbitron', sans-serif"
       >
-        <div class="mt-4 p-5 bg-secondary text-white rounded">
+        <div class="mt-4 p-5 bg-secondary text-white rounded d-flex flex-column">
           <h1>First Contact</h1>
-          <form action="/action_page.php">
+          <form>
             <div class="mb-3 mt-3">
               <label
-                for="email"
+                for="loginName"
                 class="form-label"
-                >Email:</label
+                >Username:</label
               >
               <input
-                type="email"
+                type="Name"
                 class="form-control"
-                id="email"
-                placeholder="Enter email"
-                name="email"
+                id="loginName"
+                placeholder="Enter username"
               />
             </div>
             <div class="mb-3">
               <label
-                for="pwd"
+                for="loginPassword"
                 class="form-label"
                 >Password:</label
               >
               <input
                 type="password"
                 class="form-control"
-                id="pwd"
+                id="loginPassword"
                 placeholder="Enter password"
-                name="pswd"
               />
             </div>
+            <div><p>Don't have an account? <a class="link-switch" href="register.html">Click Here</a></p></div>
             <div class="form-check mb-3">
               <label class="form-check-label">
                 <input
@@ -87,16 +79,19 @@
                 Remember me
               </label>
             </div>
-            <button
-              type="button"
-              id="loginButton"
-              class="buttons"
-              onclick="doLogin();"
-            >
-              Login
-            </button>
+           
           </form>
+          <button
+          type="button"
+          id="loginButton"
+          class="btn btn-primary"
+          onclick="doLogin();"
+        >
+          Login
+        </button>
+        <span id="loginResult"></span>
         </div>
+        <span><img style="position: fixed;"src="./images/giphy.gif" alt="Flying alien"/></span>
       </div>
     </div>
 

@@ -1,5 +1,5 @@
-const urlBase = 'http://firstcontactme.site//LAMPAPI';
-const extension = 'php';
+var urlBase = 'http://firstcontactme.site//LAMPAPI';
+var extension = 'php';
 
 let userId = 0;
 let firstName = '';
@@ -42,7 +42,7 @@ function doLogin() {
 
         saveCookie();
 
-        window.location.href = 'color.html';
+        window.location.href = 'contacts.html';
       }
     };
     xhr.send(jsonPayload);
@@ -146,8 +146,8 @@ function readCookie() {
   if (userId < 0) {
     window.location.href = 'index.html';
   } else {
-    document.getElementById('userName').innerHTML =
-      'Logged in as ' + firstName + ' ' + lastName;
+    // document.getElementById('userName').innerHTML =
+    //   'Logged in as ' + firstName + ' ' + lastName;
   }
 }
 
@@ -184,7 +184,7 @@ function addColor() {
     xhr.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         document.getElementById('colorAddResult').innerHTML =
-          'Color has been added';
+          'Contact has been added';
       }
     };
     xhr.send(jsonPayload);
@@ -227,6 +227,29 @@ function searchColor() {
     xhr.send(jsonPayload);
   } catch (err) {
     document.getElementById('colorSearchResult').innerHTML = err.message;
+  }
+}
+
+function deleteContact(id) {
+  let tmp = { ID: id };
+  let jsonPayload = JSON.stringify(tmp);
+
+  let url = urlBase + '/Delete.' + extension;
+
+  let xhr = new XMLHttpRequest();
+  xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
+  try {
+    xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        console.log('THIS IS DELETED');
+      } else {
+        console.log('did not delete');
+      }
+    };
+    xhr.send(jsonPayload);
+  } catch (err) {
+    console.log(err);
   }
 }
 
@@ -276,6 +299,7 @@ function loadData() {
           // Passes the Name, phone, and email to the function show conatct
           for (let i = 0; i < jsonObject.results.length; i++) {
             showContact(
+              jsonObject.results[i]['ID'],
               jsonObject.results[i]['Name'],
               jsonObject.results[i]['Phone'],
               jsonObject.results[i]['Email']
@@ -291,20 +315,45 @@ function loadData() {
 }
 
 // This function takes in 3 strings and prints them out by making new html elements and adding them to a div
-function showContact(name, phone, email) {
-  const div = document.createElement('div');
-  const heading = document.createElement('h4');
-  const paraPhone = document.createElement('p');
-  const paraEmail = document.createElement('p');
+function showContact(id, name, phone, email) {
+  var cardDiv = document.createElement('div');
+  var cardBody = document.createElement('div');
+  var cardHeading = document.createElement('h5');
+  var cardUL = document.createElement('ul');
+  var cardPhone = document.createElement('li');
+  var cardEmail = document.createElement('li');
+  var cardDeleteDiv = document.createElement('div');
+  var cardDeleteButton = document.createElement('button');
 
-  heading.textContent = name;
-  paraPhone.textContent = 'Phone: ' + phone;
-  paraEmail.textContent = 'Email: ' + email;
+  cardDiv.setAttribute('class', 'card mt-2 mb-4 bg-secondary');
+  cardDiv.setAttribute('style', 'width: 18rem');
 
-  let section = document.getElementById('contactList');
+  cardBody.setAttribute('class', 'card-body');
+  cardHeading.setAttribute('class', 'card-title');
+  cardHeading.textContent = name;
 
-  section.appendChild(div);
-  div.appendChild(heading);
-  div.appendChild(paraPhone);
-  div.appendChild(paraEmail);
+  cardUL.setAttribute('class', 'list-group list-group-flush');
+  cardPhone.setAttribute('class', 'list-group-item bg-secondary');
+  cardEmail.setAttribute('class', 'list-group-item bg-secondary');
+  cardPhone.textContent = phone;
+  cardEmail.textContent = email;
+
+  cardDeleteDiv.setAttribute('class', 'card-body text-center');
+  cardDeleteButton.setAttribute('class', 'btn btn-primary');
+  var id_string = `deleteContact(${id}); window.location.reload(); `;
+
+  cardDeleteButton.setAttribute('onClick', id_string);
+
+  cardDeleteButton.textContent = 'Delete';
+
+  let section = document.getElementById('contactSection');
+
+  section.appendChild(cardDiv);
+  cardDiv.appendChild(cardBody);
+  cardBody.appendChild(cardHeading);
+  cardDiv.appendChild(cardUL);
+  cardUL.appendChild(cardPhone);
+  cardUL.appendChild(cardEmail);
+  cardDiv.appendChild(cardDeleteDiv);
+  cardDeleteDiv.appendChild(cardDeleteButton);
 }

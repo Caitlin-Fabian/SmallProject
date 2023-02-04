@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>First Contact</title>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link rel="stylesheet" href="css/styles.css"></link>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+      integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      type="text/javascript"
+      src="js/code.js"
+    ></script>
+    <link
+      href="css/styles.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Ubuntu"
+      rel="stylesheet"
+    />
+
+    <script type="text/javascript">
+      document.addEventListener(
+        'DOMContentLoaded',
+        function () {
+          readCookie();
+          loadData();
+        },
+        false
+      );
+    </script>
+  </head>
+  <body>
+    <div
+      id="intro"
+    >
+      <div
+        class="container d-flex justify-content-center align-items-center"
+        style="font-family: 'Orbitron', sans-serif"
+      >
+        <div class="mt-4 p-5 bg-secondary text-white rounded d-flex flex-column">
+          <h1>Edit contact</h1>
+          <form>
+            <div class="mb-3 mt-3">
+              <label
+                for="newContactName"
+                class="form-label"
+                >New name:</label
+              >
+              <input
+                type="Name"
+                class="form-control"
+                id="newContactName"
+                placeholder="Enter name"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label
+                for="phone"
+                class="form-label"
+                >New phone:</label
+              >
+              <input
+                type="Name"
+                class="form-control"
+                id="phone"
+                placeholder="Enter phone"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label
+                for="email"
+                class="form-label"
+                >New email:</label
+              >
+              <input
+                type="Name"
+                class="form-control"
+                id="email"
+                placeholder="Enter email"
+              />
+            </div>
+          </form>
+
+    <div id="loggedInDiv">
+      <span id="userName"></span><br />
+      <button
+        type="button"
+        id="addColorButton"
+        class="btn btn-primary mx-auto w-50"
+        onclick="addColor();"
+      >
+        Confirm
+      </button><br />
+      <span id="colorAddResult"></span>
+    </div>
+    </div>
+  </body>
+</html>

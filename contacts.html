@@ -1,0 +1,344 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>First Contact</title>
+    <script
+      type="text/javascript"
+      src="js/code.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+      integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
+      rel="stylesheet"
+    />
+    <script type="text/javascript">
+      document.addEventListener(
+        'DOMContentLoaded',
+        function () {
+          readCookie();
+          loadData();
+        },
+        false
+      );
+    </script>
+  </head>
+  <body>
+    <style>
+      #intro {
+        background-image: url('https://cdn.discordapp.com/attachments/1066852233670578186/1068324269009948742/w0qg2oanfel51_1.png');
+        background-repeat: round;
+        background-color: #7831eb;
+        height: 100vh;
+        width: 100%;
+      }
+    </style>
+    
+    <div
+      id="intro"
+      class="bg-image"
+    >
+      <div
+        class="d-flex"
+        style="font-family: 'Orbitron', sans-serif; font-size: large"
+      >
+        <div class="row">
+          <div class="col-3 text-white rounded text-center">
+            <div
+              class="d-flex align-items-center flex-column bg-secondary"
+              style="height: 100vh"
+            >
+              <h1 class="mb-3 mt-3">First Contact</h1>
+              <form action="/action_page.php">
+                <div class="mt-3">
+                  <label
+                    for="search"
+                    class="form-label"
+                    >Search</label
+                  >
+                  <input
+                    type="search"
+                    class="form-control"
+                    id="search"
+                    placeholder="Contact name"
+                    name="search"
+                  />
+                </div>
+              </form>
+              <div class="mt-3">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                >
+                  Search
+                </button>
+              </div>
+              <div class="mt-3">
+                <a
+                  type="submit"
+                  class="btn btn-primary"
+                  href="http://firstcontactme.site/color.html"
+                >
+                  Add a contact
+                </a>
+              </div>
+              <div class="mt-3">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  onclick="doLogout();"
+                >
+                  Log out
+                </button>
+              </div>
+              <nav
+                aria-label="Page navigation example"
+                class="mt-auto mb-5 align-items-center justify-content-center"
+              >
+                <div>Pages</div>
+                <ul class="pagination">
+                  <li class="page-item">
+                    <a
+                      class="page-link"
+                      href="#"
+                      aria-label="Previous"
+                    >
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a
+                      class="page-link"
+                      href="#"
+                      >1</a
+                    >
+                  </li>
+                  <li class="page-item">
+                    <a
+                      class="page-link"
+                      href="#"
+                      >2</a
+                    >
+                  </li>
+                  <li class="page-item">
+                    <a
+                      class="page-link"
+                      href="#"
+                      >3</a
+                    >
+                  </li>
+                  <li class="page-item">
+                    <a
+                      class="page-link"
+                      href="#"
+                      aria-label="Next"
+                    >
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div class="col-3 text-white rounded" id="contactSection">
+            <!-- <div
+              class="card mt-2 mb-4 bg-secondary"
+              style="width: 18rem"
+              
+            >
+              <div class="card-body">
+                <h5 class="card-title">Rick Leinecker</h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item bg-secondary">1-800-LEINY</li>
+                <li class="list-group-item bg-secondary">
+                  rick@rickleinecker.com
+                </li>
+              </ul>
+              <div class="card-body text-center">
+                <a
+                  href="#"
+                  class="btn btn-primary"
+                  >Edit</a
+                >
+                <a
+                  href="#"
+                  class="btn btn-primary"
+                  >Delete</a
+                >
+              </div>
+            </div>
+
+            <div
+              class="card bg-secondary"
+              style="width: 18rem"
+            >
+              <div class="card-body">
+                <h5 class="card-title">Rick Leinecker</h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item bg-secondary">1-800-LEINY</li>
+                <li class="list-group-item bg-secondary">
+                  rick@rickleinecker.com
+                </li>
+              </ul>
+              <div class="card-body text-center">
+                <a
+                  href="#"
+                  class="btn btn-primary"
+                  >Edit</a
+                >
+                <a
+                  href="#"
+                  class="btn btn-primary"
+                  >Delete</a
+                >
+              </div> -->
+            </div>
+          </div>
+
+          <!-- <div class="col-3 text-white rounded">
+            <h3 class="mb-3 mt-3 text-center">Your Contacts</h3>
+            <div
+              class="card mt-2 mb-4 bg-secondary"
+              style="width: 18rem"
+            >
+              <div class="card-body">
+                <h5 class="card-title">Rick Leinecker</h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item bg-secondary">1-800-LEINY</li>
+                <li class="list-group-item bg-secondary">
+                  rick@rickleinecker.com
+                </li>
+              </ul>
+              <div class="card-body text-center">
+                <a
+                  href="#"
+                  class="btn btn-primary"
+                  >Edit</a
+                >
+                <a
+                  href="#"
+                  class="btn btn-primary"
+                  >Delete</a
+                >
+              </div>
+            </div> -->
+
+            <!-- <div
+                class="card bg-secondary"
+                style="width: 18rem"
+              >
+                <div class="card-body">
+                  <h5 class="card-title">Rick Leinecker</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item bg-secondary">1-800-LEINY</li>
+                  <li class="list-group-item bg-secondary">
+                    rick@rickleinecker.com
+                  </li>
+                </ul>
+                <div class="card-body text-center">
+                <a
+                    href="#"
+                    class="btn btn-primary"
+                    >Edit</a
+                  >
+                  <a
+                    href="#"
+                    class="btn btn-primary"
+                    >Delete</a
+                  >
+                </div>
+              </div>
+              </div>
+
+              <div class="col-3 text-white rounded">  -->
+            <!-- <div
+                class="card mt-2 mb-4 bg-secondary"
+                style="width: 18rem"
+              >
+                <div class="card-body">
+                  <h5 class="card-title">Rick Leinecker</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item bg-secondary">1-800-LEINY</li>
+                  <li class="list-group-item bg-secondary">
+                    rick@rickleinecker.com
+                  </li>
+                </ul>
+                <div class="card-body text-center">
+                <a
+                    href="#"
+                    class="btn btn-primary"
+                    >Edit</a
+                  >
+                  <a
+                    href="#"
+                    class="btn btn-primary"
+                    >Delete</a
+                  >
+                </div>
+              </div> -->
+
+            <!-- <div
+                class="card bg-secondary"
+                style="width: 18rem"
+              >
+                <div class="card-body">
+                  <h5 class="card-title">Rick Leinecker</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item bg-secondary">1-800-LEINY</li>
+                  <li class="list-group-item bg-secondary">
+                    rick@rickleinecker.com
+                  </li>
+                </ul>
+                <div class="card-body text-center">
+                <a
+                    href="#"
+                    class="btn btn-primary"
+                    >Edit</a
+                  >
+                  <a
+                    href="#"
+                    class="btn btn-primary"
+                    >Delete</a
+                  >
+                </div>
+              </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+      integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

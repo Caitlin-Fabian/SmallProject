@@ -1,6 +1,32 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>COP 4331 LAMP Stack Demo</title>
+    <title>First Contact</title>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link rel="stylesheet" href="css/styles.css"></link>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+      integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
+      rel="stylesheet"
+    />
     <script
       type="text/javascript"
       src="js/code.js"
@@ -26,66 +52,71 @@
     </script>
   </head>
   <body>
-    <h1 id="title">COP 4331 LAMP Stack Demo</h1>
+    <div
+      id="intro"
+    >
+      <div
+        class="container d-flex justify-content-center align-items-center"
+        style="font-family: 'Orbitron', sans-serif"
+      >
+        <div class="mt-4 p-5 bg-secondary text-white rounded d-flex flex-column">
+          <h1>Add contact</h1>
+          <form>
+            <div class="mb-3 mt-3">
+              <label
+                for="newContactName"
+                class="form-label"
+                >Name:</label
+              >
+              <input
+                type="Name"
+                class="form-control"
+                id="newContactName"
+                placeholder="Enter name"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label
+                for="phone"
+                class="form-label"
+                >Phone:</label
+              >
+              <input
+                type="Name"
+                class="form-control"
+                id="phone"
+                placeholder="Enter phone"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label
+                for="email"
+                class="form-label"
+                >Email:</label
+              >
+              <input
+                type="Name"
+                class="form-control"
+                id="email"
+                placeholder="Enter email"
+              />
+            </div>
+          </form>
 
     <div id="loggedInDiv">
       <span id="userName"></span><br />
       <button
         type="button"
-        id="logoutButton"
-        class="buttons"
-        onclick="doLogout();"
-      >
-        Log Out
-      </button>
-    </div>
-
-    <div id="accessUIDiv">
-      <br />
-
-      <input
-        type="text"
-        id="searchText"
-        placeholder="Color To Search For"
-      />
-      <button
-        type="button"
-        id="searchColorButton"
-        class="buttons"
-        onclick="searchColor();"
-      >
-        Search Color</button
-      ><br />
-      <span id="colorSearchResult"></span>
-      <p id="colorList"></p>
-      <br /><br />
-
-      <input
-        type="text"
-        id="newContactName"
-        placeholder="Name"
-      />
-      <input
-        type="text"
-        id="phone"
-        placeholder="phone"
-      />
-      <input
-        type="text"
-        id="email"
-        placeholder="email"
-      />
-      <button
-        type="button"
         id="addColorButton"
-        class="buttons"
+        class="btn btn-primary text-center align-items-center justify-content-center"
         onclick="addColor();"
       >
-        Add Color</button
-      ><br />
+        Confirm
+      </button><br />
       <span id="colorAddResult"></span>
-      <p>Contact List</p>
-      <p id="contactList"></p>
+    </div>
     </div>
   </body>
 </html>
