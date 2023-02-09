@@ -1,17 +1,21 @@
-#intro {
-  background-image: url('https://cdn.discordapp.com/attachments/1066852233670578186/1068324269009948742/w0qg2oanfel51_1.png');
-  background-repeat: round;
+#intro,
+#intro-2 {
+  background-image: url('../images/nightbackground.jpg');
   height: auto;
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
   height: 100vh;
   display: flex;
+  background-attachment: fixed;
 }
 
 html,
 body {
   height: 100vh;
+  margin: 0px;
+  /* --bs-secondary-rgb: 0,202,0; */
+  font-family: 'Orbitron', sans-serif"
 }
 
 .link-switch {
@@ -20,4 +24,27 @@ body {
 }
 .link-switch:hover {
   color: #000;
+}
+
+.bg-secondary {
+  --bs-bg-opacity: 1;
+  background-color: rgba(255, 255, 255, 0.5 /*var(--bs-bg-opacity)*/) !important;
+}
+
+/* for this to work, make sure to update bootstrap version */
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #000;
+  --bs-btn-border-color: #292929;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #0b5ed7;
+  --bs-btn-hover-border-color: #0a58ca;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #292929;
+  --bs-btn-active-border-color: #292929;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #292929;
+  --bs-btn-disabled-border-color: #292929;
 }
