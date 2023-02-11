@@ -60,60 +60,51 @@ function doRegister() {
   let password = document.getElementById('loginPassword').value;
   //	var hash = md5( password );
   let flag = validatePassword(password);
-
-  document.getElementById('loginResult').innerHTML = '';
-
-  let tmp = {
-    firstName: firstName,
-    lastName: lastName,
-    userName: login,
-    loginPassword: password,
-  };
-  console.log(tmp);
-
-  //	var tmp = {login:login,password:hash};
-  let jsonPayload = JSON.stringify(tmp);
-
-  let url = urlBase + '/Register.' + extension;
-
-  let xhr = new XMLHttpRequest();
-  //if (flag == true && login.length > 0 && firstName.length > 0 && lastName.length > 0) { //credentials valid
-
-  try {
-    xhr.open('POST', url, true);
-  } catch (err) {
-    console.log(err);
-
-    console.log('here');
-  }
-  xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
-
-  // console.log('flag = ' + flag);
-  // console.log('login.length = ' + login.length);
-  // console.log('first.length = ' + firstName.length);
-  // console.log('last.length = ' + lastName.length);
-
-  if (
-    flag == true &&
-    login.length > 0 &&
-    firstName.length > 0 &&
-    lastName.length > 0
-  ) {
-    //credentials valid
+  
+  if(flag == true){ //valid password
+  
+    document.getElementById('loginResult').innerHTML = '';
+  
+    let tmp = {
+      firstName: firstName,
+      lastName: lastName,
+      userName: login,
+      loginPassword: password,
+    };
+    console.log(tmp);
+  
+    //	var tmp = {login:login,password:hash};
+    let jsonPayload = JSON.stringify(tmp);
+  
+    let url = urlBase + '/Register.' + extension;
+  
+    let xhr = new XMLHttpRequest();
+    try {
+      xhr.open('POST', url, true);
+    } catch (err) {
+      console.log(err);
+  
+      console.log('here');
+    }
+    xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
     try {
       xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           let jsonObject = JSON.parse(xhr.responseText);
           userId = jsonObject.id;
-
+  
+          //if (userId < 1) {
+          //document.getElementById('loginResult').innerHTML =
+          //'User/Password combination incorrect';
+          //return;
+          //}
+  
           firstName = jsonObject.firstName;
           lastName = jsonObject.lastName;
-
+  
           saveCookie();
-          document.getElementById('loginResult').innerHTML =
-            'User Successfully Registered';
-          // setTimeout(,'3000');
-          window.location.href = 'index.html';
+  
+          window.location.href = 'contacts.html';
         } else {
           console.log('help');
         }
@@ -197,17 +188,19 @@ function addColor() {
 
   //if (validateEmail(newEmail) == true) {
   document.getElementById('colorAddResult').innerHTML = '';
+  if (validateEmail(newEmail) == true) {
+    document.getElementById('colorAddResult').innerHTML = '';
 
-  let tmp = {
-    contact: newContactName,
-    phone: newPhone,
-    email: newEmail,
-    userId,
-    userId,
-  };
-  let jsonPayload = JSON.stringify(tmp);
+    let tmp = {
+      contact: newContactName,
+      phone: newPhone,
+      email: newEmail,
+      userId,
+      userId,
+    };
+    let jsonPayload = JSON.stringify(tmp);
 
-  let url = urlBase + '/AddContact.' + extension;
+    let url = urlBase + '/AddContact.' + extension;
 
   let xhr = new XMLHttpRequest();
   xhr.open('POST', url, true);
@@ -277,6 +270,41 @@ function validatePhone(phone) {
     .toLowerCase()
     .match(/^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/);
   return Boolean(ret);
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
+    try {
+      xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById('colorAddResult').innerHTML =
+            'Contact has been added';
+        }
+      };
+      xhr.send(jsonPayload);
+    } catch (err) {
+      document.getElementById('colorAddResult').innerHTML = err.message;
+    }
+  } else {
+    console.log('Invalid email!');
+  }
+}
+
+function validateEmail(email) {
+  const ret = String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+  return Boolean(ret);
+}
+
+//checks that password is 8 characters long, contains lowercase, uppercase, and a number
+function validatePassword(psw){
+  if(psw.length<8 && psw.search(/[a-z]/)<0 && psw.search(/[A-Z]/)<0 && psw.search(/[0-9]/)<0){
+    return false;
+  }else{
+    return true;
+  }
 }
 
 function searchColor() {
@@ -365,6 +393,71 @@ function editContact() {
   let jsonPayload = JSON.stringify(tmp);
 
   let url = urlBase + '/UpdateContact.' + extension;
+
+  let xhr = new XMLHttpRequest();
+  xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
+  if (
+    validateEmail(newEmail) == true &&
+    newContactName.length > 0 &&
+    validatePhone(newPhone)
+  ) {
+    try {
+      xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById('editResult').innerHTML =
+            'Contact has been edited';
+          console.log('THIS IS Updated');
+        } else {
+          console.log('did not edit');
+        }
+      };
+      xhr.send(jsonPayload);
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    try {
+      if (newContactName.length < 1) {
+        document.getElementById('editResult').innerHTML =
+          '*Name cannot be left blank';
+        return;
+      } else if (!validatePhone(newPhone)) {
+        document.getElementById('editResult').innerHTML =
+          '*Invalid phone number';
+        return;
+      } else if (!validateEmail(newEmail)) {
+        document.getElementById('editResult').innerHTML =
+          '*Invalid email address';
+        return;
+      }
+    } catch (err) {
+      document.getElementById('editResult').innerHTML = err.message;
+    }
+  }
+}
+function editContact(id) {
+  let tmp = { ID: id };
+  let jsonPayload = JSON.stringify(tmp);
+
+  let url = urlBase + '/UpdateContact.' + extension;
+
+  let xhr = new XMLHttpRequest();
+  xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
+  try {
+    xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        console.log('THIS IS DELETED');
+      } else {
+        console.log('did not edit');
+      }
+    };
+    xhr.send(jsonPayload);
+  } catch (err) {
+    console.log(err);
+  }
+}
 
   let xhr = new XMLHttpRequest();
   xhr.open('POST', url, true);
@@ -515,6 +608,13 @@ function showContact(id, name, phone, email, break_obj) {
   deleteIcon.textContent = 'delete';
 
   cardDeleteButton.textContent = 'Delete';
+
+  cardEditButton.setAttribute('class', 'btn btn-primary');
+  // var id_string = `EditContact(${id}); window.location.reload(); `;
+
+  // cardEditButton.setAttribute('onClick', id_string);
+
+  cardEditButton.textContent = 'Edit';
   cardDeleteButton.appendChild(deleteIcon);
 
   // Edit Button
@@ -538,14 +638,18 @@ function showContact(id, name, phone, email, break_obj) {
   //Grabbing contactSection
   let section = document.getElementById('contactSection');
 
+  // if (break_obj % 3 == 0) {
+  //   cardDiv.setAttribute('class', row);
+  // }
+
   section.appendChild(cardDiv);
   cardDiv.appendChild(cardBody);
   cardBody.appendChild(cardHeading);
   cardDiv.appendChild(cardUL);
   cardUL.appendChild(cardPhone);
   cardUL.appendChild(cardEmail);
-  cardDiv.appendChild(cardDeleteDiv);
-  cardDeleteDiv.appendChild(cardEditA);
+  cardDiv.appendChild(cardDeleteDiv);\
+  
   cardDeleteDiv.appendChild(cardDeleteButton);
 }
 
