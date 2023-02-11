@@ -59,6 +59,7 @@ function doRegister() {
   let login = document.getElementById('userName').value;
   let password = document.getElementById('loginPassword').value;
   //	var hash = md5( password );
+  let flag = validatePassword(password);
 
   document.getElementById('loginResult').innerHTML = '';
 
@@ -76,6 +77,8 @@ function doRegister() {
   let url = urlBase + '/Register.' + extension;
 
   let xhr = new XMLHttpRequest();
+  //if (flag == true && login.length > 0 && firstName.length > 0 && lastName.length > 0) { //credentials valid
+
   try {
     xhr.open('POST', url, true);
   } catch (err) {
@@ -84,31 +87,59 @@ function doRegister() {
     console.log('here');
   }
   xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
-  try {
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        let jsonObject = JSON.parse(xhr.responseText);
-        userId = jsonObject.id;
 
-        //if (userId < 1) {
-        //document.getElementById('loginResult').innerHTML =
-        //'User/Password combination incorrect';
-        //return;
-        //}
+  // console.log('flag = ' + flag);
+  // console.log('login.length = ' + login.length);
+  // console.log('first.length = ' + firstName.length);
+  // console.log('last.length = ' + lastName.length);
 
-        firstName = jsonObject.firstName;
-        lastName = jsonObject.lastName;
+  if (
+    flag == true &&
+    login.length > 0 &&
+    firstName.length > 0 &&
+    lastName.length > 0
+  ) {
+    //credentials valid
+    try {
+      xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let jsonObject = JSON.parse(xhr.responseText);
+          userId = jsonObject.id;
 
-        saveCookie();
+          firstName = jsonObject.firstName;
+          lastName = jsonObject.lastName;
 
-        window.location.href = 'color.html';
-      } else {
-        console.log('help');
+          saveCookie();
+          document.getElementById('loginResult').innerHTML =
+            'User Successfully Registered';
+          // setTimeout(,'3000');
+          window.location.href = 'index.html';
+        } else {
+          console.log('help');
+        }
+      };
+      xhr.send(jsonPayload);
+    } catch (err) {
+      document.getElementById('loginResult').innerHTML = err.message;
+    }
+  } else {
+    try {
+      if (firstName.length < 1 || lastName.length < 1) {
+        document.getElementById('loginResult').innerHTML =
+          '*First name/Last name cannot be left blank';
+        return;
+      } else if (login.length < 1) {
+        document.getElementById('loginResult').innerHTML =
+          '*User/Password combination incorrect';
+        return;
+      } else if (flag == false) {
+        document.getElementById('loginResult').innerHTML =
+          '*Invalid password, review requirements:<br> - 8 characters long<br> - Must contain uppercase letter<br> - Must contain lowercase letter<br> - Must contain a number';
+        return;
       }
-    };
-    xhr.send(jsonPayload);
-  } catch (err) {
-    document.getElementById('loginResult').innerHTML = err.message;
+    } catch (err) {
+      document.getElementById('loginResult').innerHTML = err.message;
+    }
   }
 }
 
@@ -164,6 +195,7 @@ function addColor() {
   let newPhone = document.getElementById('phone').value;
   let newEmail = document.getElementById('email').value;
 
+  //if (validateEmail(newEmail) == true) {
   document.getElementById('colorAddResult').innerHTML = '';
 
   let tmp = {
@@ -180,22 +212,76 @@ function addColor() {
   let xhr = new XMLHttpRequest();
   xhr.open('POST', url, true);
   xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
-  try {
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
+  if (
+    validateEmail(newEmail) == true &&
+    newContactName.length > 0 &&
+    validatePhone(newPhone)
+  ) {
+    try {
+      xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById('colorAddResult').innerHTML =
+            'Contact has been added';
+        }
+      };
+      xhr.send(jsonPayload);
+    } catch (err) {
+      document.getElementById('colorAddResult').innerHTML = err.message;
+    }
+  } else {
+    try {
+      if (newContactName.length < 1) {
         document.getElementById('colorAddResult').innerHTML =
-          'Contact has been added';
+          '*Name cannot be left blank';
+        return;
+      } else if (!validatePhone(newPhone)) {
+        document.getElementById('colorAddResult').innerHTML =
+          '*Invalid phone number';
+        return;
+      } else if (!validateEmail(newEmail)) {
+        document.getElementById('colorAddResult').innerHTML =
+          '*Invalid email address';
+        return;
       }
-    };
-    xhr.send(jsonPayload);
-  } catch (err) {
-    document.getElementById('colorAddResult').innerHTML = err.message;
+    } catch (err) {
+      document.getElementById('colorAddResult').innerHTML = err.message;
+    }
   }
+}
+
+function validateEmail(email) {
+  const ret = String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+  return Boolean(ret);
+}
+
+//checks that password is 8 characters long, contains lowercase, uppercase, and a number
+function validatePassword(psw) {
+  if (
+    psw.length < 8 ||
+    psw.search(/[a-z]/) < 0 ||
+    psw.search(/[A-Z]/) < 0 ||
+    psw.search(/[0-9]/) < 0
+  ) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function validatePhone(phone) {
+  const ret = String(phone)
+    .toLowerCase()
+    .match(/^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/);
+  return Boolean(ret);
 }
 
 function searchColor() {
   let srch = document.getElementById('searchText').value;
-  document.getElementById('colorSearchResult').innerHTML = '';
+  // document.getElementById('colorSearchResult').innerHTML = '';
 
   let colorList = '';
 
@@ -210,49 +296,118 @@ function searchColor() {
   try {
     xhr.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        document.getElementById('colorSearchResult').innerHTML =
-          'Color(s) has been retrieved';
+        console.log('Color(s) has been retrieved');
         let jsonObject = JSON.parse(xhr.responseText);
 
-        for (let i = 0; i < jsonObject.results.length; i++) {
-          colorList += jsonObject.results[i];
-          if (i < jsonObject.results.length - 1) {
-            colorList += '<br />\r\n';
-          }
-        }
+        // for (let i = 0; i < jsonObject.results.length; i++) {
+        //   colorList += jsonObject.results[i];
+        //   if (i < jsonObject.results.length - 1) {
+        //     colorList += '<br />\r\n';
+        //   }
+        // }
 
-        document.getElementsByTagName('p')[0].innerHTML = colorList;
+        document.getElementById('contactSection').innerHTML = '';
+
+        for (let i = 0; i < jsonObject.results.length; i++) {
+          showContact(
+            jsonObject.results[i]['ID'],
+            jsonObject.results[i]['Name'],
+            jsonObject.results[i]['Phone'],
+            jsonObject.results[i]['Email']
+          );
+        }
       }
     };
     xhr.send(jsonPayload);
-  } catch (err) {
-    document.getElementById('colorSearchResult').innerHTML = err.message;
-  }
+  } catch (err) {}
 }
 
 function deleteContact(id) {
-  let tmp = { ID: id };
+  if (confirm('Are you sure you want to delete this contact?')) {
+    let tmp = { ID: id };
+    let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/Delete.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
+    try {
+      xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log('THIS IS DELETED');
+        } else {
+          console.log('did not delete');
+        }
+      };
+      xhr.send(jsonPayload);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+}
+
+function editContact() {
+  var editId = window.localStorage.getItem('EditID');
+  console.log(editId);
+
+  let newContactName = document.getElementById('newContactName').value;
+  let newPhone = document.getElementById('phone').value;
+  let newEmail = document.getElementById('email').value;
+
+  let tmp = {
+    ID: editId,
+    contact: newContactName,
+    phone: newPhone,
+    email: newEmail,
+  };
+
   let jsonPayload = JSON.stringify(tmp);
 
-  let url = urlBase + '/Delete.' + extension;
+  let url = urlBase + '/UpdateContact.' + extension;
 
   let xhr = new XMLHttpRequest();
   xhr.open('POST', url, true);
   xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
-  try {
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        console.log('THIS IS DELETED');
-      } else {
-        console.log('did not delete');
+  if (
+    validateEmail(newEmail) == true &&
+    newContactName.length > 0 &&
+    validatePhone(newPhone)
+  ) {
+    try {
+      xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById('editResult').innerHTML =
+            'Contact has been edited';
+          console.log('THIS IS Updated');
+        } else {
+          console.log('did not edit');
+        }
+      };
+      xhr.send(jsonPayload);
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    try {
+      if (newContactName.length < 1) {
+        document.getElementById('editResult').innerHTML =
+          '*Name cannot be left blank';
+        return;
+      } else if (!validatePhone(newPhone)) {
+        document.getElementById('editResult').innerHTML =
+          '*Invalid phone number';
+        return;
+      } else if (!validateEmail(newEmail)) {
+        document.getElementById('editResult').innerHTML =
+          '*Invalid email address';
+        return;
       }
-    };
-    xhr.send(jsonPayload);
-  } catch (err) {
-    console.log(err);
+    } catch (err) {
+      document.getElementById('editResult').innerHTML = err.message;
+    }
   }
 }
-
 function loadData() {
   // Taken from read cookie
   let data = document.cookie;
@@ -296,7 +451,7 @@ function loadData() {
           //   }
           // }
 
-          // Passes the Name, phone, and email to the function show conatct
+          // Passes the Name, phone, and email to the function show contact
           for (let i = 0; i < jsonObject.results.length; i++) {
             showContact(
               jsonObject.results[i]['ID'],
@@ -315,7 +470,7 @@ function loadData() {
 }
 
 // This function takes in 3 strings and prints them out by making new html elements and adding them to a div
-function showContact(id, name, phone, email) {
+function showContact(id, name, phone, email, break_obj) {
   var cardDiv = document.createElement('div');
   var cardBody = document.createElement('div');
   var cardHeading = document.createElement('h5');
@@ -324,28 +479,63 @@ function showContact(id, name, phone, email) {
   var cardEmail = document.createElement('li');
   var cardDeleteDiv = document.createElement('div');
   var cardDeleteButton = document.createElement('button');
+  var cardEditA = document.createElement('a');
+  var editIcon = document.createElement('i');
+  var deleteIcon = document.createElement('i');
 
-  cardDiv.setAttribute('class', 'card mt-2 mb-4 bg-secondary');
+  //Card Div and Name
+  cardDiv.setAttribute('class', ' card m-4 bg-secondary');
+
   cardDiv.setAttribute('style', 'width: 18rem');
 
   cardBody.setAttribute('class', 'card-body');
   cardHeading.setAttribute('class', 'card-title');
   cardHeading.textContent = name;
 
+  //Card Content
   cardUL.setAttribute('class', 'list-group list-group-flush');
   cardPhone.setAttribute('class', 'list-group-item bg-secondary');
   cardEmail.setAttribute('class', 'list-group-item bg-secondary');
   cardPhone.textContent = phone;
   cardEmail.textContent = email;
 
-  cardDeleteDiv.setAttribute('class', 'card-body text-center');
-  cardDeleteButton.setAttribute('class', 'btn btn-primary');
+  //Delete Button
+  cardDeleteDiv.setAttribute(
+    'class',
+    'card-body text-center d-flex justify-content-around'
+  );
+  cardDeleteButton.setAttribute(
+    'class',
+    'btn editButton btn-primary justify-content-center d-flex shadow'
+  );
   var id_string = `deleteContact(${id}); window.location.reload(); `;
 
   cardDeleteButton.setAttribute('onClick', id_string);
+  deleteIcon.setAttribute('class', 'material-icons ml-1');
+  deleteIcon.textContent = 'delete';
 
   cardDeleteButton.textContent = 'Delete';
+  cardDeleteButton.appendChild(deleteIcon);
 
+  // Edit Button
+  cardEditA.setAttribute(
+    'class',
+    'btn editButton btn-primary justify-content-center d-flex shadow'
+  );
+  cardEditA.setAttribute('href', 'http://firstcontactme.site/edit.html');
+  cardEditA.setAttribute('type', 'submit');
+
+  var id_string = `saveEditID(${id});`;
+
+  cardEditA.setAttribute('onClick', id_string);
+
+  editIcon.setAttribute('class', 'material-icons ml-1');
+  editIcon.textContent = 'edit';
+
+  cardEditA.textContent = 'Edit';
+  cardEditA.appendChild(editIcon);
+
+  //Grabbing contactSection
   let section = document.getElementById('contactSection');
 
   section.appendChild(cardDiv);
@@ -355,5 +545,10 @@ function showContact(id, name, phone, email) {
   cardUL.appendChild(cardPhone);
   cardUL.appendChild(cardEmail);
   cardDiv.appendChild(cardDeleteDiv);
+  cardDeleteDiv.appendChild(cardEditA);
   cardDeleteDiv.appendChild(cardDeleteButton);
+}
+
+function saveEditID(id) {
+  window.localStorage.setItem('EditID', id);
 }

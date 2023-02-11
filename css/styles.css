@@ -1,5 +1,6 @@
-#intro {
-  background-image: url('https://cdn.discordapp.com/attachments/1066852233670578186/1068324269009948742/w0qg2oanfel51_1.png');
+#intro,
+#intro-2 {
+  background-image: url('../images/nightbackground.jpg');
   background-repeat: round;
   height: auto;
   background-size: cover;
@@ -7,11 +8,16 @@
   width: 100%;
   height: 100vh;
   display: flex;
+  overflow-x: hidden;
+  background-attachment: fixed;
 }
 
 html,
 body {
   height: 100vh;
+  margin: 0px;
+  overflow-x: hidden;
+  font-family: 'Orbitron', sans-serif"
 }
 
 .link-switch {
@@ -20,4 +26,8 @@ body {
 }
 .link-switch:hover {
   color: #000;
+}
+
+.editButton{
+  width: 40%;
 }

@@ -2,9 +2,9 @@
 
 	$inData = getRequestInfo();
 
-    $Name = $inData["Name"];
-    $Phone = $inData["Phone"];
-    $Email = $inData["Email"];
+    $Name = $inData["contact"];
+    $Phone = $inData["phone"];
+    $Email = $inData["email"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error) 
